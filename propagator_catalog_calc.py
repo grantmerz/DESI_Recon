@@ -12,27 +12,27 @@ ap.add_argument('--b', type=float)
 ns = ap.parse_args()
 N=512
 path = '/global/project/projectdirs/desi/users/UNIT-BAO-RSD-challenge/Reconstruction/Stage1/'
-
 initname = '/global/cscratch1/sd/yuyu22//unitic/den0512.bin'
 
 t0=time.time()
 
 init_dat = np.fromfile(initname,dtype=np.float32,sep='')
-
 arr_init = init_dat.reshape((N,N,N),order='F')
 mesh_init = ArrayMesh(arr_init,BoxSize=1000)
 
 datfile = path+ns.data
 ranfile = path+ns.ran
-from nbodykit.source.catalog import CSVCatalog
 
+#May have to add a 'z_rsd' column to names depending on how teams format their files.
 names = ['x','y','z']
 catp = CSVCatalog(datfile,names)
 catran = CSVCatalog(ranfile,names)
 
+
 xp = catp['x'].compute()
 yp = catp['y'].compute()
 zp = catp['z'].compute()
+#replace zp with z_rsd when relevant
 positionp = np.stack([xp,yp,zp],axis=1)
 
 xran = catran['x'].compute()
