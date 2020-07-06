@@ -70,7 +70,7 @@ pg2d=[]
 pg2d.append(r_cross.power[:,0]['k'])
 pg2d.append(r_cross.power[:,0]['power'].real/r_auto_init.power[:,0]['power'].real/(Gf*b))
 pg2d.append(r_cross.power[:,9]['power'].real/r_auto_init.power[:,9]['power'].real/(Gf*b))
-np.savetxt(out+'2Dpropagator',np.column_stack([pg2d[0],pg2d[1],pg2d[2]]),header='Gf = %lf \nb = %lf \ndk=0.05 \nkmean \t \t C(k,mu=0.05) \t \t C(k,mu=0.95' %(Gf,b))
+np.savetxt(out+'2Dpropagator.txt',np.column_stack([pg2d[0],pg2d[1],pg2d[2]]),header='Gf = %lf \nb = %lf \ndk=0.05 \nkmean \t \t C(k,mu=0.05) \t \t C(k,mu=0.95' %(Gf,b))
 
 reconell=[]
 poles = r_auto_init.poles
@@ -81,7 +81,7 @@ for ell in [0,2,4]:
         P = P-poles.attrs['shotnoise']
     reconell.append(P)
 
-np.savetxt(out+'reconstructed_multipoles',np.column_stack([reconell[0],reconell[1],reconell[2],reconell[3]]),header='dk=0.05 \nshotnoise= %lf \nkmean \t \t \t P_0-shot \t \t \t P_2 \t \t \t P_4' %(poles.attrs['shotnoise']))
+np.savetxt(out+'reconstructed_multipoles.txt',np.column_stack([reconell[0],reconell[1],reconell[2],reconell[3]]),header='dk=0.05 \nshotnoise= %lf \nkmean \t \t \t P_0-shot \t \t \t P_2 \t \t \t P_4' %(poles.attrs['shotnoise']))
 
 
 print('%lf seconds' %(time.time()-t0))
