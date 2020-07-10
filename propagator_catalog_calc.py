@@ -7,8 +7,8 @@ ap.add_argument('--data',type=str)
 ap.add_argument('--ran',type=str)
 ap.add_argument('--out',type=str)
 #ap.add_argument('--pk',type=str)
-ap.add_argument('--Gf', type=float)
-ap.add_argument('--b', type=float)
+ap.add_argument('--Gf', type=float,default=0.61207)
+ap.add_argument('--b', type=float, default=1.4)
 ns = ap.parse_args()
 N=512
 path = '/global/project/projectdirs/desi/users/UNIT-BAO-RSD-challenge/Reconstruction/Stage1/'
