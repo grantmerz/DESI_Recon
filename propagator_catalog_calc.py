@@ -57,8 +57,8 @@ LOS = [0,0,1]
 r_cross = FFTPower(mesh_init, mode='2d', Nmesh=512, Nmu=10, dk=0.05, second=mesh_recon,los=LOS)
 #r_cross_1d = FFTPower(mesh_init, mode='1d', Nmesh=512, dk=0.05, second=mesh_recon)
 
-r_auto = FFTPower(mesh_recon,mode='2d', Nmesh=512, Nmu=10, dk=0.05, los=LOS)
-#r_auto_1d = FFTPower(mesh_recon, mode='1d', Nmesh=512, dk=0.05)
+r_auto_recon = FFTPower(mesh_recon,mode='2d', Nmesh=512, Nmu=10, dk=0.05, los=LOS)
+#r_auto_recon_1d = FFTPower(mesh_recon, mode='1d', Nmesh=512, dk=0.05)
 
 r_auto_init = FFTPower(mesh_init,mode='2d', Nmesh=512, Nmu=10, dk=0.05, los=LOS, poles=[0,2,4])
 #r_auto_init_1d = FFTPower(mesh_recon, mode='1d', Nmesh=512, dk=0.05)
@@ -73,7 +73,7 @@ pg2d.append(r_cross.power[:,9]['power'].real/r_auto_init.power[:,9]['power'].rea
 np.savetxt(out+'2Dpropagator.txt',np.column_stack([pg2d[0],pg2d[1],pg2d[2]]),header='Gf = %lf \nb = %lf \ndk=0.05 \nkmean \t \t C(k,mu=0.05) \t \t C(k,mu=0.95' %(Gf,b))
 
 reconell=[]
-poles = r_auto_init.poles
+poles = r_auto_recon.poles
 reconell.append(poles['k'])
 for ell in [0,2,4]:
     P = poles['power_%d' %ell].real
