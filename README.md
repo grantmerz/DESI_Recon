@@ -6,7 +6,7 @@ Code produces two text files
 prefix to data and random path is set to '/global/project/projectdirs/desi/users/UNIT-BAO-RSD-challenge/Reconstruction/Stage1/'  
   
 Add command line arguments  
---data : path to data file
+--data : path to data file  
 --ran : path to randoms file  
 --b : bias  
 --Gf : growth factor  
