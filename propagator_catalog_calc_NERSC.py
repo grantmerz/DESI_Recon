@@ -75,7 +75,6 @@ pg1d.append(r_cross_1d.power['k'])
 pg1d.append(r_cross_1d.power['power'].real/r_auto_init_1d.power['power'].real/(Gf*b))
 np.savetxt(out+'1Dpropagator.txt',np.column_stack([pg1d[0],pg1d[1]]),header='Gf= %lf \nb + %lf \n dk=0.05 \nkmean \t \t C(k)' % (Gf,b))
 
-print(r_cross.power[:,0]['k'])
 pg2d.append(r_cross.power[:,10]['k'])
 pg2d.append(r_cross.power[:,10]['power'].real/r_auto_init.power[:,0]['power'].real/(Gf*b))
 pg2d.append(r_cross.power[:,19]['power'].real/r_auto_init.power[:,9]['power'].real/(Gf*b))
