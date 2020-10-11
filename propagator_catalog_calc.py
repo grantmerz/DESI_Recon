@@ -9,8 +9,10 @@ ap.add_argument('--out',type=str)
 #ap.add_argument('--pk',type=str)
 ap.add_argument('--Gf', type=float,default=0.61207)
 ap.add_argument('--b', type=float, default=1.4)
+ap.add_argument('--Nmu',type=int,default=10)
 ns = ap.parse_args()
 N=512
+Nmu = ns.Nmu
 path = '/global/project/projectdirs/desi/users/UNIT-BAO-RSD-challenge/Reconstruction/Stage1/'
 initname = '/global/cscratch1/sd/yuyu22//unitic/den0512.bin'
 
@@ -54,13 +56,13 @@ arrayrecon = array_d-array_s
 mesh_recon = ArrayMesh(arrayrecon,BoxSize=1000)
 
 LOS = [0,0,1]
-r_cross = FFTPower(mesh_init, mode='2d', Nmesh=512, Nmu=10, dk=0.05, second=mesh_recon,los=LOS)
+r_cross = FFTPower(mesh_init, mode='2d', Nmesh=512, Nmu=2*Nmu, dk=0.05, second=mesh_recon,los=LOS)
 r_cross_1d = FFTPower(mesh_init, mode='1d', Nmesh=512, dk=0.05, second=mesh_recon)
 
-r_auto_recon = FFTPower(mesh_recon,mode='2d', Nmesh=512, Nmu=10, dk=0.05, los=LOS, poles=[0,2,4])
+r_auto_recon = FFTPower(mesh_recon,mode='2d', Nmesh=512, Nmu=2*Nmu, dk=0.05, los=LOS, poles=[0,2,4])
 #r_auto_recon_1d = FFTPower(mesh_recon, mode='1d', Nmesh=512, dk=0.05)
 
-r_auto_init = FFTPower(mesh_init,mode='2d', Nmesh=512, Nmu=10, dk=0.05, los=LOS)
+r_auto_init = FFTPower(mesh_init,mode='2d', Nmesh=512, Nmu=2*Nmu, dk=0.05, los=LOS)
 #r_auto_init_1d = FFTPower(mesh_recon, mode='1d', Nmesh=512, dk=0.05)
 
 Gf = ns.Gf
@@ -74,10 +76,10 @@ pg2d=[]
 #np.savetxt(out+'1Dpropagator.txt',np.column_stack([pg1d[0],pg1d[1]]),header='Gf= %lf \nb + %lf \n dk=0.05 
 #\nkmean \t \t C(k)' % (Gf,b))
 
-pg2d.append(r_cross.power[:,0]['k'])
-pg2d.append(r_cross.power[:,0]['power'].real/r_auto_init.power[:,0]['power'].real/(Gf*b))
-pg2d.append(r_cross.power[:,9]['power'].real/r_auto_init.power[:,9]['power'].real/(Gf*b))
-np.savetxt(out+'2Dpropagator.txt',np.column_stack([pg2d[0],pg2d[1],pg2d[2]]),header='Gf = %lf \nb = %lf \ndk=0.05 \nkmean \t \t C(k,mu=0.05) \t \t C(k,mu=0.95' %(Gf,b))
+pg2d.append(r_cross.power[:,Nmu]['k'])
+pg2d.append(r_cross.power[:,Nmu]['power'].real/r_auto_init.power[:,Nmu]['power'].real/(Gf*b))
+pg2d.append(r_cross.power[:,2*Nmu-1]['power'].real/r_auto_init.power[:,2*Nmu-1]['power'].real/(Gf*b))
+np.savetxt(out+'2Dpropagator.txt',np.column_stack([pg2d[0],pg2d[1],pg2d[2]]),header='Gf = %lf \nb = %lf \ndk=0.05 \nkmean \t \t C(k,mu=%lf) \t \t C(k,mu=%lf)' %(Gf,b,r_cross.power.coords['mu'][Nmu],r_cross.power.coords['mu'][2*Nmu-1]))
 
 reconell=[]
 poles = r_auto_recon.poles
