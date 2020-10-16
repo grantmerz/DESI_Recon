@@ -23,8 +23,8 @@ init_dat = np.fromfile(initname,dtype=np.float32,sep='')
 arr_init = init_dat.reshape((N,N,N),order='F')
 mesh_init = ArrayMesh(arr_init,BoxSize=1000)
 
-datfile = path+ns.data
-ranfile = path+ns.ran
+datfile = ns.data
+ranfile = ns.ran
 
 #May have to add a 'z_rsd' column to names depending on how teams format their files.
 names = ['x','y','z']
