@@ -12,11 +12,10 @@ ap.add_argument('--b', type=float, default=1.4)
 ap.add_argument('--Nmu',type=int,default=10)
 ns = ap.parse_args()
 N=512
-
 Nmu = ns.Nmu
-path = '/global/project/projectdirs/desi/users/UNIT-BAO-RSD-challenge/Reconstruction/Stage1/'
-initname = '/global/cscratch1/sd/yuyu22//unitic/den0512.bin'
 
+path = '/global/project/projectdirs/desi/users/UNIT-BAO-RSD-challenge/Reconstruction/Stage1/'
+initname = '/global/cscratch1/sd/yuyu22/unitic/den0512.bin'
 
 t0=time.time()
 
@@ -24,8 +23,8 @@ init_dat = np.fromfile(initname,dtype=np.float32,sep='')
 arr_init = init_dat.reshape((N,N,N),order='F')
 mesh_init = ArrayMesh(arr_init,BoxSize=1000)
 
-datfile = ns.data
-ranfile = ns.ran
+datfile = path+ns.data
+ranfile = path+ns.ran
 
 #May have to add a 'z_rsd' column to names depending on how teams format their files.
 names = ['x','y','z']
@@ -60,13 +59,15 @@ mesh_recon = ArrayMesh(arrayrecon,BoxSize=1000)
 LOS = [0,0,1]
 
 r_cross = FFTPower(mesh_init, mode='2d', Nmesh=512, Nmu=2*Nmu, dk=0.05, second=mesh_recon,los=LOS)
-r_cross_1d = FFTPower(mesh_init, mode='1d', Nmesh=512, dk=0.05, second=mesh_recon)
+#r_cross_1d = FFTPower(mesh_init, mode='1d', Nmesh=512, dk=0.05, second=mesh_recon)
 
 r_auto_recon = FFTPower(mesh_recon,mode='2d', Nmesh=512, Nmu=2*Nmu, dk=0.05, los=LOS, poles=[0,2,4])
 #r_auto_recon_1d = FFTPower(mesh_recon, mode='1d', Nmesh=512, dk=0.05)
 
 r_auto_init = FFTPower(mesh_init,mode='2d', Nmesh=512, Nmu=2*Nmu, dk=0.05, los=LOS)
 #r_auto_init_1d = FFTPower(mesh_recon, mode='1d', Nmesh=512, dk=0.05)
+
+
 Gf = ns.Gf
 b = ns.b
 out = ns.out
@@ -74,9 +75,9 @@ out = ns.out
 pg2d=[]
 pg1d=[]
 
-pg1d.append(r_cross_1d.power['k'])
-pg1d.append(r_cross_1d.power['power'].real/r_auto_init_1d.power['power'].real/(Gf*b))
-np.savetxt(out+'1Dpropagator.txt',np.column_stack([pg1d[0],pg1d[1]]),header='Gf= %lf \nb + %lf \n dk=0.05 \nkmean \t \t C(k)' % (Gf,b))
+#pg1d.append(r_cross_1d.power['k'])
+#pg1d.append(r_cross_1d.power['power'].real/r_auto_init_1d.power['power'].real/(Gf*b))
+#np.savetxt(out+'1Dpropagator.txt',np.column_stack([pg1d[0],pg1d[1]]),header='Gf= %lf \nb + %lf \n dk=0.05 \nkmean \t \t C(k)' % (Gf,b))
 
 
 pg2d.append(r_cross.power[:,Nmu]['k'])
