@@ -59,7 +59,7 @@ mesh_recon = ArrayMesh(arrayrecon,BoxSize=1000)
 LOS = [0,0,1]
 
 r_cross = FFTPower(mesh_init, mode='2d', Nmesh=512, Nmu=2*Nmu, dk=0.05, second=mesh_recon,los=LOS)
-r_cross_1d = FFTPower(mesh_init, mode='1d', Nmesh=512, dk=0.05, second=mesh_recon)
+#r_cross_1d = FFTPower(mesh_init, mode='1d', Nmesh=512, dk=0.05, second=mesh_recon)
 
 r_auto_recon = FFTPower(mesh_recon,mode='2d', Nmesh=512, Nmu=2*Nmu, dk=0.05, los=LOS, poles=[0,2,4])
 #r_auto_recon_1d = FFTPower(mesh_recon, mode='1d', Nmesh=512, dk=0.05)
@@ -75,11 +75,19 @@ out = ns.out
 pg2d=[]
 pg1d=[]
 
-pg1d.append(r_cross_1d.power['k'])
-pg1d.append(r_cross_1d.power['power'].real/r_auto_init_1d.power['power'].real/(Gf*b))
-np.savetxt(out+'1Dpropagator.txt',np.column_stack([pg1d[0],pg1d[1]]),header='Gf= %lf \nb + %lf \n dk=0.05 \nkmean \t \t C(k)' % (Gf,b))
+#pg1d.append(r_cross_1d.power['k'])
+#pg1d.append(r_cross_1d.power['power'].real/r_auto_init_1d.power['power'].real/(Gf*b))
+#np.savetxt(out+'1Dpropagator.txt',np.column_stack([pg1d[0],pg1d[1]]),header='Gf= %lf \nb + %lf \n dk=0.05 \nkmean \t \t C(k)' % (Gf,b))
 
 
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
+>>>>>>> dev
 pg2d.append(r_cross.power[:,Nmu]['k'])
 pg2d.append(r_cross.power[:,Nmu]['power'].real/r_auto_init.power[:,Nmu]['power'].real/(Gf*b))
 pg2d.append(r_cross.power[:,2*Nmu-1]['power'].real/r_auto_init.power[:,2*Nmu-1]['power'].real/(Gf*b))
