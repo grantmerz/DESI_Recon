@@ -80,6 +80,10 @@ pg1d=[]
 #np.savetxt(out+'1Dpropagator.txt',np.column_stack([pg1d[0],pg1d[1]]),header='Gf= %lf \nb + %lf \n dk=0.05 \nkmean \t \t C(k)' % (Gf,b))
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 pg2d.append(r_cross.power[:,Nmu]['k'])
 pg2d.append(r_cross.power[:,Nmu]['power'].real/r_auto_init.power[:,Nmu]['power'].real/(Gf*b))
 pg2d.append(r_cross.power[:,2*Nmu-1]['power'].real/r_auto_init.power[:,2*Nmu-1]['power'].real/(Gf*b))
