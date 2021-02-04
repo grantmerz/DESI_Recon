@@ -3,19 +3,20 @@ import time
 from nbodykit.lab import *
 from argparse import ArgumentParser
 ap = ArgumentParser(description='PropagatorCalc')
-ap.add_argument('--data',type=str)
-ap.add_argument('--ran',type=str)
+ap.add_argument('--data',type=str,default='')
+ap.add_argument('--ran',type=str,default='')
 ap.add_argument('--out',type=str)
 #ap.add_argument('--pk',type=str)
 ap.add_argument('--Gf', type=float,default=0.61207)
 ap.add_argument('--b', type=float, default=1.4)
 ap.add_argument('--Nmu',type=int,default=10)
+ap.add_argument('--init',type=str)
+
+
 ns = ap.parse_args()
 N=512
 Nmu = ns.Nmu
-
-path = '/global/project/projectdirs/desi/users/UNIT-BAO-RSD-challenge/Reconstruction/Stage1/'
-initname = '/global/cscratch1/sd/yuyu22/unitic/den0512.bin'
+initname = ns.init
 
 t0=time.time()
 
