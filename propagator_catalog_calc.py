@@ -135,7 +135,8 @@ np.savetxt(out+'1Dpropagator.txt',np.column_stack([pg1d[0],pg1d[1]]),header='Gf=
 pg2d.append(r_cross.power[:,Nmu]['k'])
 pg2d.append(r_cross.power[:,Nmu]['power'].real/r_auto_init.power[:,Nmu]['power'].real/(Gf*b))
 pg2d.append(r_cross.power[:,2*Nmu-1]['power'].real/r_auto_init.power[:,2*Nmu-1]['power'].real/(Gf*b))
-np.savetxt(out+'2Dpropagator.txt',np.column_stack([pg2d[0],pg2d[1],pg2d[2]]),header='Gf = %lf \nb = %lf \ndk=dk \nkmean \t \t C(k,mu=0.05) \t \t C(k,mu=0.95' %(Gf,b))
+np.savetxt(out+'2Dpropagator.txt',np.column_stack([pg2d[0],pg2d[1],pg2d[2]]),header='Gf = %lf \nb = %lf \ndk=dk \nkmean \t \t  C(k,mu=%lf) \t \t C(k,mu=%lf)' %(Gf,b,r_cross.power.coords['mu'][Nmu],r_cross.power.coords['mu'][2*\
+Nmu-1]))
 
 reconell=[]
 poles = r_auto_recon.poles
