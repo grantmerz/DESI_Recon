@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p debug
+#SBATCH -p regular
 #SBATCH -o propagator_job_mesh
 #SBATCH -N 1
 #SBATCH -t 00:15:00
