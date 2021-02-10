@@ -1,8 +1,8 @@
 # DESI_Recon
 Code produces three text files
 1) Propagator C(k)
-2) Propagator C(k,mu) at mu=0.05 and mu=0.95
-3) Auto-Power P(k) muktipoles of the reconstructed catalog  
+2) Propagator C(k,mu) along line of sight and perpendicular to line of sight
+3) Auto-Power P_l(k) multipoles of the reconstructed density field  
 
   
 Add command line arguments  
