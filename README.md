@@ -12,4 +12,5 @@ Add command line arguments
 --b : bias  
 --Gf : growth factor  
 --out : prefix for output files  
+--Yoki : edited this
 
